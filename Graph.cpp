@@ -1,5 +1,6 @@
 #include "Graph.h"
 #include <iostream>
+#include <set>
 using namespace std;
 
 Graph::Graph(){
@@ -64,11 +65,30 @@ bool Graph::isValidWalk(const vector<int>& walk){
 bool Graph::isClosedWalk(const std::vector<int>& walk){
     int start = 0;
     int end = walk.size() - 1;
-    if (walk[start] == walk[end]){
+    if (walk[start] == walk[end]){ //if the first vertex is the same as the last vertex
         // cout << "CLOSED\n";
         return true;
     }
     return false;
+}
+
+bool Graph::isTrail(const std::vector<int>& walk){
+    //make a set to store the edges we've seen
+    set<pair<int, int>> seenEdges;
+
+    for (int i = 0; i < walk.size() - 1; i++){
+        int source = walk[i]; //first vertex in edge
+        int destination = walk[i + 1]; //second vertex in edge
+
+        //make a pair with the two vertices, the smaller value goes first, the larger goes second
+        pair<int, int> edge = {min(source, destination), max(source, destination)};
+        if (seenEdges.find(edge) != seenEdges.end()){ // if edge is already in the set
+            return false;
+        }
+        //insert the edge into seenEdges
+        seenEdges.insert(edge);
+    }
+    return true;
 }
 
 void Graph::promptForWalk(){
@@ -117,6 +137,11 @@ void Graph::printWalkProperties(const std::vector<int>& walk){
         cout << "CLOSED\n";
     } else{
         cout << "OPEN\n";
+    }
+    if (isTrail(walk)){
+        cout << "TRAIL\n";
+    } else{
+        cout << "NOT A TRAIL\n";
     }
 }
 

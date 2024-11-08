@@ -15,6 +15,7 @@ public:
     void addEdge(int source, int destination);
     bool isValidWalk(const std::vector<int>& walk);
     bool isClosedWalk(const std::vector<int>& walk);
+    bool isTrail(const std::vector<int>& walk);
 
     void promptForWalk();
     void printWalkProperties(const std::vector<int>& walk);
