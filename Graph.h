@@ -14,8 +14,10 @@ public:
 
     void addEdge(int source, int destination);
     bool isValidWalk(const std::vector<int>& walk);
+    bool isClosedWalk(const std::vector<int>& walk);
 
     void promptForWalk();
+    void printWalkProperties(const std::vector<int>& walk);
     void initializeAdjacencyList(); //get number of vertices and their neighbors from user, then store in adjacenyList
     void printAdjacencyList(); //print the adjacencyList
 

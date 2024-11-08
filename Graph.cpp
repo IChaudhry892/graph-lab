@@ -61,6 +61,16 @@ bool Graph::isValidWalk(const vector<int>& walk){
     return true;
 }
 
+bool Graph::isClosedWalk(const std::vector<int>& walk){
+    int start = 0;
+    int end = walk.size() - 1;
+    if (walk[start] == walk[end]){
+        // cout << "CLOSED\n";
+        return true;
+    }
+    return false;
+}
+
 void Graph::promptForWalk(){
     vector<int> walk;
     while (true){
@@ -86,10 +96,27 @@ void Graph::promptForWalk(){
         
         if (!walk.empty() && isValidWalk(walk)){
             cout << "WALK IS VALID!\n";
+            printWalkProperties(walk);
             break;
         } else{
             cout << "WALK NOT VALID! PLEASE TRY AGAIN!\n";
         }
+    }
+}
+
+void Graph::printWalkProperties(const std::vector<int>& walk){
+    cout << "The Walk Sequence: <";
+    for (int i = 0; i < walk.size(); i++){
+        cout << walk[i];
+        if (i != walk.size() - 1){
+            cout << ", ";
+        }
+    }
+    cout << "> has the following properties:\n";
+    if (isClosedWalk(walk)){
+        cout << "CLOSED\n";
+    } else{
+        cout << "OPEN\n";
     }
 }
 
