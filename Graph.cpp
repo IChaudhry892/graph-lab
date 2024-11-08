@@ -17,9 +17,6 @@ Graph::Graph(int numVertices, bool directed/*= false*/){
 }
 
 void Graph::addEdge(int source, int destination){
-    // adjacencyList[source].push_back(destination);
-    // adjacencyList[destination].push_back(source);
-
     //check if edge already exists
     bool edgeExists = false;
     for (int neighbor : adjacencyList[source]){
@@ -65,13 +62,10 @@ bool Graph::isValidWalk(const vector<int>& walk){
 }
 
 bool Graph::isClosedWalk(const std::vector<int>& walk){
-    int start = 0;
-    int end = walk.size() - 1;
-    // if (walk[start] == walk[end]){ //if the first vertex is the same as the last vertex
-    //     return true;
-    // }
-    // return false;
-    return walk[start] == walk[end]; //returns true if start and end are same, false otherwise
+    int start = 0; //first vertex index
+    int end = walk.size() - 1; //last vertex index
+
+    return walk[start] == walk[end]; //returns true if first and last vertex are same, false otherwise
 }
 
 bool Graph::isTrail(const vector<int>& walk){
@@ -90,18 +84,18 @@ bool Graph::isTrail(const vector<int>& walk){
         //insert the edge into seenEdges
         seenEdges.insert(edge);
     }
-    return true;
+    return true; //no edges were repeated
 }
 
 bool Graph::isPath(const vector<int>& walk){
     unordered_map<int, int> seenVertices; //key: vertex in walk, value: number of occurrences
     for (int vertex : walk){ //for every vertex in walk
-        if (seenVertices[vertex] >= 1){ //if it has occurred once or more already
+        if (seenVertices[vertex] >= 1){ //if vertex has occurred once or more already
             return false;
         }
-        seenVertices[vertex]++; //add vertex to hash map with value of 1, and increase the value if vertex is already in the hash map
+        seenVertices[vertex]++; //add vertex to hash map with value of 1, and increment the value if vertex is already in the hash map
     }
-    return true;
+    return true; //no vertices were repeated
 }
 
 bool Graph::isCircuit(const vector<int>& walk){
@@ -110,16 +104,6 @@ bool Graph::isCircuit(const vector<int>& walk){
 }
 
 bool Graph::isCycle(const vector<int>& walk){
-    // //if the walk is open, return false
-    // if (!isClosedWalk(walk)){
-    //     return false;
-    // }
-
-    // //if edges are repeated, return false
-    // if (!isTrail(walk)){
-    //     return false;
-    // }
-
     // if the walk is not a circuit, return false
     if (!isCircuit(walk)){
         return false;
@@ -128,10 +112,10 @@ bool Graph::isCycle(const vector<int>& walk){
     //if vertices are repeated (excluding first and last), return false
     unordered_set<int> seenVertices;
     for (int i = 0; i < walk.size() - 1; i++){
-        if (seenVertices.find(walk[i]) != seenVertices.end()){
+        if (seenVertices.find(walk[i]) != seenVertices.end()){ //if the vertex is already in the hash set
             return false;
         }
-        seenVertices.insert(walk[i]);
+        seenVertices.insert(walk[i]); //insert the vertex into the hash set
     }
     return true; //if no vertices are repeated, return true;
 }
@@ -178,6 +162,7 @@ void Graph::printWalkProperties(const vector<int>& walk){
         }
     }
     cout << "> has the following properties:\n";
+    //check for all 5 properties
     if (isClosedWalk(walk)){
         cout << "CLOSED\n";
     } else{
