@@ -16,6 +16,7 @@ public:
     bool isValidWalk(const std::vector<int>& walk);
     bool isClosedWalk(const std::vector<int>& walk);
     bool isTrail(const std::vector<int>& walk);
+    bool isPath(const std::vector<int>& walk);
 
     void promptForWalk();
     void printWalkProperties(const std::vector<int>& walk);

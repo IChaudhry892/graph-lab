@@ -1,6 +1,7 @@
 #include "Graph.h"
 #include <iostream>
 #include <set>
+#include <unordered_map>
 using namespace std;
 
 Graph::Graph(){
@@ -72,7 +73,7 @@ bool Graph::isClosedWalk(const std::vector<int>& walk){
     return false;
 }
 
-bool Graph::isTrail(const std::vector<int>& walk){
+bool Graph::isTrail(const vector<int>& walk){
     //make a set to store the edges we've seen
     set<pair<int, int>> seenEdges;
 
@@ -87,6 +88,17 @@ bool Graph::isTrail(const std::vector<int>& walk){
         }
         //insert the edge into seenEdges
         seenEdges.insert(edge);
+    }
+    return true;
+}
+
+bool Graph::isPath(const vector<int>& walk){
+    unordered_map<int, int> seen; //key: vertex in walk, value: number of occurrences
+    for (int vertex : walk){ //for every vertex in walk
+        if (seen[vertex] >= 1){ //if it has occurred once or more already
+            return false;
+        }
+        seen[vertex]++; //add vertex to hash map with value of 1, and increase the value if vertex is already in the hash map
     }
     return true;
 }
@@ -124,7 +136,7 @@ void Graph::promptForWalk(){
     }
 }
 
-void Graph::printWalkProperties(const std::vector<int>& walk){
+void Graph::printWalkProperties(const vector<int>& walk){
     cout << "The Walk Sequence: <";
     for (int i = 0; i < walk.size(); i++){
         cout << walk[i];
@@ -138,10 +150,17 @@ void Graph::printWalkProperties(const std::vector<int>& walk){
     } else{
         cout << "OPEN\n";
     }
+
     if (isTrail(walk)){
-        cout << "TRAIL\n";
+        cout << "TRAIL (No Repeated Edges)\n";
     } else{
-        cout << "NOT A TRAIL\n";
+        cout << "NOT A TRAIL (Repeated Edges)\n";
+    }
+
+    if (isPath(walk)){
+        cout << "PATH (No Repeated Vertices\n";
+    } else{
+        cout << "NOT A PATH (Repeated Vertices)\n";
     }
 }
 
