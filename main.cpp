@@ -28,8 +28,13 @@ int main(){
     // undirectedGraph.initializeAdjacencyList();
     undirectedGraph.addEdge(0, 1);
     undirectedGraph.addEdge(0, 2);
+    undirectedGraph.addEdge(0, 3);
+    undirectedGraph.addEdge(0, 4);
     undirectedGraph.addEdge(1, 2);
+    undirectedGraph.addEdge(1, 4);
     undirectedGraph.addEdge(2, 3);
+    undirectedGraph.addEdge(2, 4);
+    undirectedGraph.addEdge(3, 4);
     undirectedGraph.printAdjacencyList();
     undirectedGraph.promptForWalk();
 
