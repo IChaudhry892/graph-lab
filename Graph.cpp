@@ -1,3 +1,10 @@
+/*
+Links to External Resources:
+https://www.geeksforgeeks.org/walks-trails-paths-cycles-and-circuits-in-graph/#
+https://www.geeksforgeeks.org/cpp-program-to-implement-adjacency-list/
+https://www.youtube.com/watch?v=dhgKr8942rs&ab_channel=CodingBlocks
+https://www.youtube.com/watch?v=3OamzN90kPg&ab_channel=NeetCode
+*/
 #include "Graph.h"
 #include <iostream>
 #include <set>
